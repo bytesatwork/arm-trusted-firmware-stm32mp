@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+/*
+ * Copyright (C) 2024 bytesatwork AG - https://www.bytesatwork.io
+ * Author: Markus Kappeler <markus.kappeler@bytesatwork.ch>
+ */
+
+#include "stm32mp15xx-dkx.dtsi"
+
+&qspi {
+	pinctrl-names = "default";
+	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
+	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+
+	flash0: w25n01g@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-rx-bus-width = <2>;
+		spi-tx-bus-width = <2>;
+		spi-max-frequency = <50000000>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+	};
+};
+
+&usbotg_hs {
+	usb-role-host;
+};
